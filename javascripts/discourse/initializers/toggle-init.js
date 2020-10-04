@@ -5,13 +5,14 @@ import { popupAjaxError } from "discourse/lib/ajax-error";
 export default {
   name: "toggle-whispers",
   initialize() {
-    withPluginApi("0.1", whisperInit);
+    withPluginApi("0.11.0", whisperInit);
   },
 };
 
 const whisperInit = (api) => {
   const currentUser = api.getCurrentUser();
-  if (currentUser && currentUser.staff) {
+  const siteSettings = api._lookupContainer("site-settings:main");
+  if (currentUser && currentUser.staff && siteSettings.enable_whispers) {
     api.attachWidgetAction("post-menu", "toggleWhisper", function () {
       const model = this.attrs;
       let newType = model.post_type === 1 ? 4 : 1;

@@ -15,6 +15,7 @@ const whisperInit = (api) => {
     api.attachWidgetAction("post-menu", "toggleWhisper", function () {
       const model = this.attrs;
       let newType = model.post_type === 1 ? 4 : 1;
+
       ajax(`/posts/${model.id}/post_type`, {
         type: "PUT",
         data: {
@@ -23,11 +24,17 @@ const whisperInit = (api) => {
       }).catch(popupAjaxError);
     });
 
-    api.addPostMenuButton("toggleWhisper", () => {
+    api.addPostMenuButton("toggleWhisper", (model) => {
+      let isWhisper = model.post_type === 4;
+      let icon = isWhisper ? "far-eye" : "far-eye-slash";
+      let title = isWhisper
+        ? "toggle_button_title.regular"
+        : "toggle_button_title.whisper";
       return {
         action: "toggleWhisper",
-        icon: "file-alt",
-        title: themePrefix("toggle_button_title"),
+        icon: icon,
+        title: themePrefix(title),
+        position: "second-last-hidden",
       };
     });
   }

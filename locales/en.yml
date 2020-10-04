@@ -1,2 +1,4 @@
 en:
-  toggle_button_title: "Toggle Whisper"
+  toggle_button_title:
+    whisper: "Make Whisper"
+    regular: "Make Regular Post"

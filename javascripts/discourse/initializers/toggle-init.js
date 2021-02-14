@@ -26,6 +26,8 @@ const whisperInit = (api) => {
     });
 
     api.addPostMenuButton("toggleWhisper", (model) => {
+      if (model.post_number < 2) return;
+
       let isWhisper = model.post_type === 4;
       let icon = isWhisper ? "far-eye" : "far-eye-slash";
       let title = isWhisper

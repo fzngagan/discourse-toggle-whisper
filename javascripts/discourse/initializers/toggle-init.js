@@ -12,7 +12,7 @@ export default {
 const whisperInit = (api) => {
   const currentUser = api.getCurrentUser();
   const siteSettings = api._lookupContainer("site-settings:main");
-  if (currentUser && currentUser.staff && siteSettings.enable_whispers) {
+  if (currentUser && currentUser.staff && siteSettings.whispers_allowed_groups?.split('|')?.includes('3')) {
     api.attachWidgetAction("post-menu", "toggleWhisper", function () {
       const model = this.attrs;
       let newType = model.post_type === 1 ? 4 : 1;

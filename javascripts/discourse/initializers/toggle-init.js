@@ -11,8 +11,7 @@ export default {
 
 const whisperInit = (api) => {
   const currentUser = api.getCurrentUser();
-  const siteSettings = api._lookupContainer("site-settings:main");
-  if (currentUser && currentUser.staff && siteSettings.enable_whispers) {
+  if (currentUser && currentUser.staff && currentUser.whisperer) {
     api.attachWidgetAction("post-menu", "toggleWhisper", function () {
       const model = this.attrs;
       let newType = model.post_type === 1 ? 4 : 1;
@@ -26,7 +25,7 @@ const whisperInit = (api) => {
     });
 
     api.addPostMenuButton("toggleWhisper", (model) => {
-      if (!model.staff || model.post_number < 2) return;
+      if (model.post_number < 2) return;
 
       let isWhisper = model.post_type === 4;
       let icon = isWhisper ? "far-eye" : "far-eye-slash";

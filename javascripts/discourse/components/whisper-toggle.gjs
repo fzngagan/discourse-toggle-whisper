@@ -14,7 +14,7 @@ export default class PostMenuFoldingButton extends Component {
     if (args.post.post_number === 1) {
       return false;
     }
-    return args.state.currentUser.whisperer;
+    return args.state.currentUser?.whisperer;
   }
 
   @service appEvents;
